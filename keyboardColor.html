@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificador de teclas</title>
+</head>
+<body >
+   
+    <h1 class="center">Identificador de teclas</h1>
+    <p></p>
+    <div  id="root" class="center">
+        <input v-on:keyup ="keyboard($event)" type="text" placeholder="Presione una tecla">
+        <p></p>
+        <canvas id="my-canvas" v-bind:style="{background: eventColor}" width="500" height="200"></canvas>
+        <p></p>
+        <label><h2>{{ textEvent }}</h2></label>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    
+    <script>
+        let variables = {
+            eventColor:"black",
+            textEvent: "No ha presionado nada"     
+        }
+        var t = new Vue({
+            el:"#root",
+            data:variables,
+            methods:{
+                keyboard(event){
+                    var entry = event.key
+                    var letrasKey = "qwertyuiopasdfghjklñzxcvbnm"
+                    var numerosKey = "1234567890"
+  
+                    var espacio = letrasKey.split("")
+                    
+                    
+                    for(var i = 0 ; i < espacio.length ; i++){
+                
+                        if(espacio[i] == entry){
+                            this.eventColor = "green"
+                            this.textEvent = "Ha presionado una tecla de tipo letra"
+                            return
+                        }
+                    }
+
+                    espacio = letrasKey.toUpperCase()
+                    espacio = espacio.split("")
+
+                    for(var i = 0 ; i < espacio.length ; i++){
+                
+                        if(espacio[i] == entry){
+                            this.eventColor = "green"
+                            this.textEvent = "Ha presionado una tecla de tipo letra"
+                            return
+                        }
+                    }
+
+                    espacio = numerosKey.split("")
+
+                    for(var i = 0 ; i < espacio.length ; i++){
+                
+                        if(espacio[i] == entry){
+                            this.eventColor = "red"
+                            this.textEvent = "Ha presionado una tecla de tipo númerica"
+                            return
+                        }
+                    }
+                    this.eventColor = "yellow"
+                    this.textEvent = "Ha presionado una tecla de otro tipo"
+                }
+            }
+        })         
+    </script>
+    <style>
+        .center {
+            padding: 50px 0 0 70px;
+            text-align: center;
+            width: 90%;
+            }
+    </style>
+</body>
+</html>
